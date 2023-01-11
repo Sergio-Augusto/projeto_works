@@ -1,12 +1,11 @@
 /*!
 
 =========================================================
-* BLK Design System React - v1.2.1
+* Now UI Dashboard PRO React - v1.3.0
 =========================================================
 
-* Product Page: https://www.creative-tim.com/product/blk-design-system-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/blk-design-system-react/blob/main/LICENSE.md)
+* Product Page: https://www.creative-tim.com/product/now-ui-dashboard-pro-react
+* Copyright 2019 Creative Tim (https://www.creative-tim.com)
 
 * Coded by Creative Tim
 
@@ -16,37 +15,36 @@
 
 */
 import React from "react";
-import ReactDOM from "react-dom/client";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import ReactDOM from "react-dom";
+import { createBrowserHistory } from "history";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
 
-import "assets/css/nucleo-icons.css";
-import "assets/scss/blk-design-system-react.scss";
-import "assets/demo/demo.css";
+import "bootstrap/dist/css/bootstrap.css";
+import "assets/scss/now-ui-dashboard.scss?v=1.3.0";
+import "assets/css/demo.css";
 
-import Index from "views/Index.js";
-import LandingPage from "views/examples/LandingPage.js";
-import RegisterPage from "views/examples/RegisterPage.js";
-import ProfilePage from "views/examples/ProfilePage.js";
+import AdminLayout from "layouts/Admin.jsx";
+import AuthLayout from "layouts/Auth.jsx";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const hist = createBrowserHistory();
 
-root.render(
-  <BrowserRouter>
+ReactDOM.render(
+  <Router history={hist}>
     <Switch>
-      <Route path="/components" render={(props) => <Index {...props} />} />
       <Route
-        path="/landing-page"
-        render={(props) => <LandingPage {...props} />}
+        path="/admin"
+        render={props => {
+          return <AdminLayout {...props} />;
+        }}
       />
       <Route
-        path="/register-page"
-        render={(props) => <RegisterPage {...props} />}
+        path="/auth"
+        render={props => {
+          return <AuthLayout {...props} />;
+        }}
       />
-      <Route
-        path="/profile-page"
-        render={(props) => <ProfilePage {...props} />}
-      />
-      <Redirect from="/" to="/components" />
+      <Redirect to="/admin/dashboard" />
     </Switch>
-  </BrowserRouter>
+  </Router>,
+  document.getElementById("root")
 );
